@@ -4,18 +4,27 @@ fn main() {
         let mut buf = String::new();
         std::io::stdin().read_line(&mut buf).unwrap();
         let number: u128 = buf.trim().parse().unwrap();
-        for x in 1..number {
-            while x % 3 == 0 && x % 5 == 0 {
-                println!("FizzBuzz");
+        let mut x = 1;
+        loop {
+            let mut str = "".to_string();
+
+            if x > number {
                 break;
             }
             if x % 3 == 0 {
-                println!("Fizz")
-            } else if x % 5 == 0 {
-                println!("Buzz")
-            } else {
-                println!("{}", x)
+                str += "Fizz";
             }
+            if x % 5 == 0 {
+                str += "Buzz";
+            }
+
+            if str.is_empty() {
+                println!("{}", x);
+            } else {
+                println!("{str}");
+            }
+            x += 1;
+            // free
         }
     }
 }
@@ -30,3 +39,9 @@ fn main() {
 //  si no se cumple ninguno de los anteriores imprimir el numero
 
 // recorrer todos los num usando: Loop, While, For
+
+// Cosas que podes hacer mal con el malloc (memory allocation) /free
+
+// 1 no hacer el free despues de un malloc (ej: break antes de llamar a un malloc) - no es problema de seguridad, pero si un problema de uso de recursos
+// 2 use after free - problema de seguridad (ub)
+// 3 free after free - problema de seguridad (undefined behavior)
